@@ -1,0 +1,86 @@
+{
+  "projectInfo": {
+    "schemaVersion": "1",
+    "description": "AI Platform Database"
+  },
+  "collections": [
+    {
+      "name": "users",
+      "description": "User profiles and credit balances",
+      "securityRules": {
+        "read": "if request.auth.uid == documentId;",
+        "create": "if request.auth.uid == documentId;",
+        "update": "if request.auth.uid == documentId;"
+      },
+      "documents": {
+        "exampleUser": {
+          "fields": [
+            { "name": "uid", "type": "string", "description": "User ID" },
+            { "name": "email", "type": "string", "description": "User Email" },
+            { "name": "credits", "type": "number", "description": "User credits balance" },
+            { "name": "subscriptionTier", "type": "string", "description": "Free or Premium" },
+            { "name": "createdAt", "type": "timestamp", "description": "Account Creation Time" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "chats",
+      "description": "Chat conversations.",
+      "securityRules": {
+        "read": "if request.auth != null && resource.data.uid == request.auth.uid;",
+        "create": "if request.auth != null && request.resource.data.uid == request.auth.uid;",
+        "update": "if request.auth != null && resource.data.uid == request.auth.uid;"
+      },
+      "documents": {
+        "exampleChat": {
+          "fields": [
+            { "name": "uid", "type": "string", "description": "User ID" },
+            { "name": "title", "type": "string", "description": "Chat Title" },
+            { "name": "createdAt", "type": "timestamp" },
+            { "name": "updatedAt", "type": "timestamp" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "chat_messages",
+      "description": "Messages within a chat",
+      "securityRules": {
+        "read": "if request.auth != null && resource.data.uid == request.auth.uid;",
+        "create": "if request.auth != null && request.resource.data.uid == request.auth.uid;"
+      },
+      "documents": {
+        "exampleMessage": {
+          "fields": [
+            { "name": "chatId", "type": "string" },
+            { "name": "uid", "type": "string" },
+            { "name": "role", "type": "string", "description": "user or assistant" },
+            { "name": "content", "type": "string" },
+            { "name": "createdAt", "type": "timestamp" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "generations",
+      "description": "Image and Video Generations",
+      "securityRules": {
+        "read": "if request.auth != null && resource.data.uid == request.auth.uid;",
+        "create": "if request.auth != null && request.resource.data.uid == request.auth.uid;"
+      },
+      "documents": {
+        "exampleGen": {
+          "fields": [
+            { "name": "uid", "type": "string" },
+            { "name": "type", "type": "string", "description": "image or video" },
+            { "name": "prompt", "type": "string" },
+            { "name": "resultUrl", "type": "string" },
+            { "name": "cost", "type": "number", "description": "Credits cost" },
+            { "name": "createdAt", "type": "timestamp" }
+          ]
+        }
+      }
+    }
+  ]
+}

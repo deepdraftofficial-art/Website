@@ -1,0 +1,6 @@
+{
+  "name": "AI Content Platform",
+  "description": "A comprehensive AI generation platform featuring chat, image (DALL-E), and video (Sora) capabilities with credits and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
